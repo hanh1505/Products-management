@@ -1,0 +1,114 @@
+/* Header */
+.header {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.header .inner-logo img {
+  max-height: 50px;
+  max-width: 100%;
+}
+
+.header .inner-menu > ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.header .inner-menu > ul > li {
+  margin-left: 20px;
+}
+/* End Header */
+
+/* Footer */
+.footer {
+  background: #333;
+  color:#fff;
+  text-align: center;
+  padding: 10px;
+}
+/* end footer */
+.box-head{
+    margin-bottom: 0;
+    font-size:29px;
+    font-weight: 600;
+    color: green;
+}
+.product-item .inner-image {
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-bottom: 1px solid #ddd;
+}
+
+.product-item .inner-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-item .inner-content {
+  padding: 15px;
+}
+
+.product-item .inner-content .inner-title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.product-item .inner-content .inner-price-new {
+  font-size: 18px;
+  font-weight: 600;
+  color: green;
+}
+.product-item {
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Giới hạn tiêu đề 1 dòng, dài thì hiện ...  */
+.product-item .inner-content .inner-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Giá cũ gạch ngang, màu xám nhạt */
+.product-item .inner-content .inner-price-old {
+  font-size: 14px;
+  color: #999;
+  text-decoration: line-through;
+}
+
+/* Giá mới màu xanh đậm hơn một chút */
+.product-item .inner-content .inner-price-new {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f9d58;
+}
+
+/* Phần trăm giảm giá dạng “badge” nhỏ */
+.product-item .inner-content .inner-discount {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  background: #e53935;
+  border-radius: 4px;
+}
