@@ -4,11 +4,13 @@ include ../../mixins/filter-status.pug
 include ../../mixins/search.pug
 include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi.pug
+include ../../mixins/alert.pug
 block main 
+    +alert-success(3000)
     h1 Danh sách sản phẩm
 
     .card.mb-3
-        .card-header Bộ lọc và Tìm kiếm
+        .card-header Bộ lọc và Tìm kiếm          
         .card-body
             .row
                 .col-6
@@ -19,7 +21,14 @@ block main
     .card.mb-3
         .card-header Danh sách
         .card-body
-            +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
+            .row    
+                .col-8
+                    +form-change-multi(`${prefixAdmin}/products/change-multi?_method=PATCH`)
+                .col-4
+                    a(
+                        href=`${prefixAdmin}/products/create`
+                        class="btn btn-outline-success"
+                    ) + Thêm mới
             table(
                 class="table table-hover table-sm"
                 checkbox-multi
@@ -32,6 +41,7 @@ block main
                         th Hình ảnh
                         th Tiêu đề
                         th Giá
+                        th Vị trí
                         th Trạng thái
                         th Hành động
                 tbody
@@ -48,12 +58,20 @@ block main
                                 img(
                                     src=item.thumbnail
                                     alt=item.title
-                                    width="150px"
-                                    height="75px"
-                                    object-fit="contain"
+                                    width="100px"
+                                    height="auto"
+                                    object-fit="cover"
                                 )
                             td #{item.title}
                             td #{item.price}$
+                            td 
+                                input(
+                                    type="number"
+                                    name="position"
+                                    value=item.position
+                                    style="width:60px;"
+                                    min="1"
+                                )
                             td 
                                 if(item.status == 'active')
                                     a(

@@ -104,10 +104,17 @@ if (formChangeMulti) {
 
             inputsChecked.forEach(input => {
                 const id = input.value;
-                ids.push(id);
+                if (typeChange == "change-position") {
+                    const position = input.closest("tr").querySelector("input[name='position']").value;
+                    
+                    console.log(`${id}-${position}`);
+                    ids.push(`${id}-${position}`)
+                } else {
+                    ids.push(id);
+                }
             });
 
-            inputIds.value = ids.join(", ");
+            inputIds.value = ids.join(",");
             formChangeMulti.submit();
         } else {
             alert("Vui lòng chọn ít nhất một bản ghi!");
@@ -115,3 +122,17 @@ if (formChangeMulti) {
     });
 }
 //end form change multi
+// show-alert
+const showAlert = document.querySelector("[show-alert]")
+if(showAlert){
+    const time = parseInt(showAlert.getAttribute("data-time"))  
+    const closeAlert = showAlert.querySelector("[close-alert]")
+    setTimeout(() => {
+        showAlert.classList.add("alert-hidden")
+    }, time);
+    closeAlert.addEventListener("click",() => {
+        showAlert.classList.add("alert-hidden")
+    })
+}
+
+//End show alert
