@@ -3,11 +3,11 @@ const methodOverride = require("method-override");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 
-const dataabase = require("./config/database.js")
+const database = require("./config/database.js")
 const route = require("./routes/client/index.route.js")
 const routeAdmin = require("./routes/admin/index.route.js")
 
-dataabase.connect()
+database.connect()
 const systemConfig = require("./config/system.js")
 const app = express();
 const port = process.env.PORT;

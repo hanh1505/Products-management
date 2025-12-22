@@ -77,8 +77,25 @@ module.exports.changeMulti = async (req, res) => {
     case "inactive":
       await Product.updateMany({ _id: { $in: ids } }, { status: "inactive" });
       break;
+    case "delete-all":
+      // await Product.deleteMany({ _id: { $in: ids } }); //xóa hẳn khỏi database
+      await Product.updateMany({ _id: { $in: ids } }, { 
+        deleted: true,
+        deletedAt: new Date(),
+       }); //chỉ đánh dấu xóa             
+      break;
     default:
       break;
   }
+  res.redirect("/admin/products");
+}
+//[DELETE] admin/products/delete/:id
+module.exports.deleteItem = async (req, res) => {
+  const id = req.params.id;
+  // await Product.deleteOne({ _id: id }); //xóa hẳn khỏi database
+  await Product.updateOne({ _id: id }, { 
+    deleted: true,
+    deletedAt: new Date(),
+   }); //chỉ đánh dấu xóa             
   res.redirect("/admin/products");
 }
