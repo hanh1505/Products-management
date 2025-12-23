@@ -7,6 +7,7 @@ include ../../mixins/form-change-multi.pug
 include ../../mixins/alert.pug
 block main 
     +alert-success(3000)
+    +alert-error(3000)
     h1 Danh sách sản phẩm
 
     .card.mb-3
@@ -90,7 +91,8 @@ block main
                                         class="badge badge-danger"
                                     ) Ngưng hoạt động
                             td
-                                button(
+                                a(
+                                    href=`${prefixAdmin}/products/edit/${item.id}`
                                     class="btn btn-warning btn-sm"
                                 ) Sửa
                                 button(
