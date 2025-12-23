@@ -108,3 +108,13 @@
   background: #fffdff;
 }
 /* End Show Alert */
+/* Upload Image */
+.image-preview {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+}
