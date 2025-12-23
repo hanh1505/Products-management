@@ -1,7 +1,7 @@
 
 
 //[GET] admin/products
-const Product = require("../../models/product.model.");
+const Product = require("../../models/product.model");
 const filterStatusHelper = require("../../helpers/filterStatus");
 const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
