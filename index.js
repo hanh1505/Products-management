@@ -18,14 +18,15 @@ const port = process.env.PORT;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 
-app.set('views', './views');
+app.set('views', `${__dirname}/views`);
 app.set('view engine', 'pug');
 //flash message
 app.use(cookieParser("hanhdz"));
 app.use(session({ cookie: { maxAge: 60000 } }));
 app.use(flash());
 //static files
-app.use(express.static("public"));
+
+app.use(express.static(`${__dirname}/public`));
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 //routes
 routeAdmin(app);
