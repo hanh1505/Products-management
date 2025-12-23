@@ -1,6 +1,7 @@
 extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 block main 
+  +alert-success(3000)
   +alert-error(3000)
   h1(class="mb-4") Chỉnh sửa sản phẩm 
   
@@ -78,7 +79,6 @@ block main
         accept="image/*"
         placeholder="Nhập URL ảnh"
         upload-image-input
-        required
       )
       img(
         src=product.thumbnail
