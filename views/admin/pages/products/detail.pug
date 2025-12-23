@@ -1,36 +1,421 @@
+//- extends ../../layouts/default.pug
+
+//- block main
+//-   if (product.title)
+//-     h1(class="mb-4") #{product.title}
+
+//-   if (product.price)
+//-     div(class="mb-4") Giá: <b>#{product.price}$</b>
+
+//-   if (product.discountPercentage)
+//-     div(class="mb-4") Giảm giá: <b>#{product.discountPercentage}%</b>
+
+//-   if (product.stock)
+//-     div(class="mb-4") Còn lại: <b>#{product.stock}</b>
+
+//-   if (product.thumbnail)
+//-     div(class="mb-4")
+//-       img(
+//-         src=product.thumbnail
+//-         style="width: 100px"
+//-       )
+
+//-   if (product.status)
+//-     div(class="mb-4")
+//-       span Trang thái:
+//-       if (product.status === "active")
+//-         span(class="badge badge-success") Hoạt động
+//-       else
+//-         span(class="badge badge-danger") Không hoạt động
+//-     if (product.position)
+//-         div(class="mb-4") Vị trí: <b>#{product.position}</b>
+
+//-     if (product.description)
+//-         div(class="mb-4") #{product.description}
+//-     a(class="btn btn-warning" href=`${prefixAdmin}/products/edit/${product.id}`) Chỉnh sửa sản phẩm
+//-     script(src="/admin/js/product.js")
+
+
 extends ../../layouts/default.pug
 
 block main
-  if (product.title)
-    h1(class="mb-4") #{product.title}
+  style.
+    :root{
+      --bg1:#0f172a;
+      --bg2:#111827;
+      --card: rgba(255,255,255,.92);
+      --muted:#64748b;
+      --text:#0f172a;
+      --line: rgba(15,23,42,.08);
+      --shadow: 0 18px 50px rgba(2,6,23,.18);
+      --shadow2: 0 10px 28px rgba(2,6,23,.12);
+      --r: 18px;
+    }
 
-  if (product.price)
-    div(class="mb-4") Giá: <b>#{product.price}$</b>
+    .pm-wrap{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 10px 40px;
+    }
 
-  if (product.discountPercentage)
-    div(class="mb-4") Giảm giá: <b>#{product.discountPercentage}%</b>
+    /* Header */
+    .pm-hero{
+      border-radius: calc(var(--r) + 6px);
+      background:
+        radial-gradient(1200px 420px at 10% 0%, rgba(99,102,241,.35), transparent 55%),
+        radial-gradient(1000px 380px at 90% 10%, rgba(34,197,94,.28), transparent 55%),
+        linear-gradient(135deg, #0b1225 0%, #0a132f 50%, #07101f 100%);
+      color: #fff;
+      padding: 22px 22px;
+      box-shadow: var(--shadow2);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .pm-hero:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: linear-gradient(90deg, rgba(255,255,255,.16), rgba(255,255,255,0));
+      transform: rotate(8deg);
+      opacity:.25;
+      pointer-events:none;
+    }
+    .pm-hero-top{
+      display:flex;
+      gap: 14px;
+      align-items:flex-start;
+      justify-content: space-between;
+      position: relative;
+    }
+    .pm-title{
+      margin:0;
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.6px;
+      line-height: 1.15;
+      max-width: 760px;
+    }
+    .pm-sub{
+      margin-top: 8px;
+      color: rgba(255,255,255,.78);
+      font-weight: 500;
+      font-size: 14px;
+    }
+    .pm-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap: wrap;
+      justify-content:flex-end;
+    }
+    .pm-btn{
+      border-radius: 14px !important;
+      padding: 10px 14px !important;
+      font-weight: 700 !important;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border: 1px solid rgba(255,255,255,.14) !important;
+      background: rgba(255,255,255,.08) !important;
+      color:#fff !important;
+      transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+      text-decoration:none;
+      white-space: nowrap;
+    }
+    .pm-btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.14) !important;
+      box-shadow: 0 10px 22px rgba(0,0,0,.18);
+    }
+    .pm-btn.primary{
+      background: rgba(99,102,241,.95) !important;
+      border-color: rgba(99,102,241,.95) !important;
+    }
+    .pm-btn.primary:hover{
+      background: rgba(99,102,241,1) !important;
+    }
+    .pm-btn.danger{
+      background: rgba(239,68,68,.92) !important;
+      border-color: rgba(239,68,68,.92) !important;
+    }
+    .pm-btn.danger:hover{
+      background: rgba(239,68,68,1) !important;
+    }
+    .pm-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.12);
+      font-weight: 800;
+      font-size: 12px;
+      margin-top: 14px;
+      width: fit-content;
+    }
+    .dot{
+      width:9px;height:9px;border-radius:999px;
+      background: rgba(148,163,184,.9);
+      box-shadow: 0 0 0 3px rgba(148,163,184,.18);
+    }
+    .dot.on{
+      background: rgba(34,197,94,1);
+      box-shadow: 0 0 0 3px rgba(34,197,94,.18);
+    }
+    .dot.off{
+      background: rgba(239,68,68,1);
+      box-shadow: 0 0 0 3px rgba(239,68,68,.18);
+    }
 
-  if (product.stock)
-    div(class="mb-4") Còn lại: <b>#{product.stock}</b>
+    /* Card */
+    .pm-card{
+      margin-top: 16px;
+      border-radius: calc(var(--r) + 6px);
+      background: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+    .pm-card-body{
+      padding: 22px;
+    }
 
-  if (product.thumbnail)
-    div(class="mb-4")
-      img(
-        src=product.thumbnail
-        style="width: 100px"
-      )
+    /* Layout inside */
+    .pm-grid{
+      display:grid;
+      grid-template-columns: 340px 1fr;
+      gap: 18px;
+      align-items:start;
+    }
+    @media (max-width: 900px){
+      .pm-grid{ grid-template-columns: 1fr; }
+      .pm-title{ font-size: 24px; }
+      .pm-hero{ padding: 18px; }
+      .pm-card-body{ padding: 18px; }
+    }
 
-  if (product.status)
-    div(class="mb-4")
-      span Trang thái:
-      if (product.status === "active")
-        span(class="badge badge-success") Hoạt động
-      else
-        span(class="badge badge-danger") Không hoạt động
-    if (product.position)
-        div(class="mb-4") Vị trí: <b>#{product.position}</b>
+    /* Thumbnail */
+    .thumb{
+      border-radius: var(--r);
+      border: 1px solid var(--line);
+      background: #f1f5f9;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 16px 26px rgba(2,6,23,.10);
+    }
+    .thumb img{
+      width:100%;
+      height: 280px;
+      object-fit: cover;
+      display:block;
+      transform: scale(1);
+      transition: transform .35s ease;
+    }
+    .thumb:hover img{
+      transform: scale(1.04);
+    }
+    .thumb-empty{
+      height: 280px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color: var(--muted);
+      font-weight: 800;
+      background:
+        radial-gradient(260px 140px at 20% 20%, rgba(99,102,241,.12), transparent 60%),
+        radial-gradient(240px 140px at 80% 30%, rgba(34,197,94,.10), transparent 60%),
+        #f8fafc;
+    }
+    .thumb-tag{
+      position:absolute;
+      left: 12px;
+      bottom: 12px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(15,23,42,.78);
+      color:#fff;
+      font-size: 12px;
+      font-weight: 800;
+      border: 1px solid rgba(255,255,255,.14);
+      display:flex;
+      align-items:center;
+      gap:8px;
+      backdrop-filter: blur(8px);
+    }
 
-    if (product.description)
-        div(class="mb-4") #{product.description}
-    a(class="btn btn-warning" href=`${prefixAdmin}/products/edit/${product.id}`) Chỉnh sửa sản phẩm
-    script(src="/admin/js/product.js")
+    /* Info tiles */
+    .tiles{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 12px;
+    }
+    @media (max-width: 620px){
+      .tiles{ grid-template-columns: 1fr; }
+    }
+    .tile{
+      border-radius: var(--r);
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 14px 14px;
+      box-shadow: 0 10px 20px rgba(2,6,23,.06);
+      display:flex;
+      gap: 12px;
+      align-items:flex-start;
+    }
+    .icon{
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 900;
+      color: #0f172a;
+      background:
+        radial-gradient(22px 22px at 30% 30%, rgba(99,102,241,.30), transparent 60%),
+        radial-gradient(22px 22px at 70% 70%, rgba(34,197,94,.22), transparent 60%),
+        rgba(15,23,42,.06);
+      border: 1px solid rgba(15,23,42,.08);
+      flex: 0 0 auto;
+    }
+    .kv{
+      flex:1;
+      display:flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+    .k{
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .2px;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .v{
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--text);
+      overflow:hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .v small{
+      font-weight: 800;
+      color: var(--muted);
+    }
+
+    /* Description */
+    .desc{
+      margin-top: 14px;
+      border-radius: var(--r);
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(420px 220px at 20% 0%, rgba(99,102,241,.10), transparent 60%),
+        radial-gradient(420px 240px at 90% 10%, rgba(34,197,94,.08), transparent 60%),
+        #ffffff;
+      padding: 16px;
+      box-shadow: 0 12px 22px rgba(2,6,23,.06);
+    }
+    .desc h3{
+      margin:0 0 8px 0;
+      font-size: 15px;
+      font-weight: 900;
+      color: #0f172a;
+    }
+    .desc p{
+      margin:0;
+      color: #0f172a;
+      opacity: .85;
+      line-height: 1.75;
+      font-weight: 600;
+      white-space: pre-wrap;
+    }
+
+    /* Bottom actions in card */
+    .pm-card-actions{
+      margin-top: 16px;
+      display:flex;
+      gap:10px;
+      flex-wrap: wrap;
+    }
+
+  .pm-wrap
+    //- HERO
+    .pm-hero
+      .pm-hero-top
+        .pm-head
+          h1.pm-title #{product.title || "Chi tiết sản phẩm"}
+          .pm-sub ID: #{product._id || product.id} • Cập nhật: #{product.updatedAt || "—"}
+          if (product.status)
+            .pm-pill
+              if (product.status === "active")
+                span.dot.on
+                span Đang hoạt động
+              else
+                span.dot.off
+                span Không hoạt động
+
+        .pm-actions
+          a.pm-btn(href=`${prefixAdmin}/products`) ← Danh sách
+          a.pm-btn.primary(href=`${prefixAdmin}/products/edit/${product._id || product.id}`) ✎ Chỉnh sửa
+
+    //- CARD
+    .pm-card
+      .pm-card-body
+        .pm-grid
+          //- LEFT: thumbnail
+          .pm-left
+            if (product.thumbnail)
+              .thumb
+                img(src=product.thumbnail alt=product.title)
+                .thumb-tag
+                  span 📷
+                  span Ảnh sản phẩm
+            else
+              .thumb.thumb-empty
+                | Không có ảnh
+
+          //- RIGHT: info
+          .pm-right
+            .tiles
+              if (product.price)
+                .tile
+                  .icon ₫
+                  .kv
+                    .k Giá
+                    .v #{product.price}$
+
+              if (product.discountPercentage)
+                .tile
+                  .icon %
+                  .kv
+                    .k Giảm giá
+                    .v #{product.discountPercentage}<small>%</small>
+
+              if (product.stock)
+                .tile
+                  .icon 📦
+                  .kv
+                    .k Tồn kho
+                    .v #{product.stock}
+
+              if (product.position)
+                .tile
+                  .icon 🧭
+                  .kv
+                    .k Vị trí
+                    .v #{product.position}
+
+            if (product.description)
+              .desc
+                h3 Mô tả
+                p #{product.description}
+
+        .pm-card-actions
+          a.pm-btn.primary(href=`${prefixAdmin}/products/edit/${product._id || product.id}`) ✎ Chỉnh sửa sản phẩm
+          button.pm-btn.danger(type="button" id="btnDelete" data-id=`${product._id || product.id}`) 🗑 Xóa sản phẩm
+
+  script(src="/admin/js/product.js")
